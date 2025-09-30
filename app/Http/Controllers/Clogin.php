@@ -40,7 +40,7 @@ class Clogin extends Controller
         }
 
         if (Auth::attempt($data)) {
-            return redirect()->route('dashboard'); // dashboard
+            return redirect()->route('dashboard'); // ganti sesuai kebutuhan
         } else {
             return redirect()->route('login')->with('failed', 'Username atau password salah');
         }

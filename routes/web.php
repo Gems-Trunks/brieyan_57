@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Clogin;
 use App\Http\Controllers\Canggota;
 // use App\Http\Controllers\Csiswa;
@@ -20,7 +20,6 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Route::get('/logout', [Clogin::class, 'logout'])->name('logout');
     Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
@@ -28,7 +27,9 @@ Route::middleware(['auth'])->group(function () {
     return redirect('/login');
     })->name('logout');
 
-    Route::get('anggota', [Canggota::class, 'index'])->name('anggota.index');
 
-    // Route::resource('/siswa', Csiswa::class);
+    Route::middleware(['level:admin'])->group(function() {
+        Route::get('/anggota',[Canggota::class, 'index'])->name('anggota.index');
+    });
+
 });
