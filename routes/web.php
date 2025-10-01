@@ -30,6 +30,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['level:admin'])->group(function() {
         Route::get('/anggota',[Canggota::class, 'index'])->name('anggota.index');
+        Route::get('/anggota/create',[Canggota::class, 'create'])->name('anggota.create');
+        Route::post('/anggota/save',[Canggota::class, 'save'])->name('anggota.save');
+        Route::get('/anggota/{$id}/edit',[Canggota::class, 'edit'])->name('anggota.edit');
+        Route::put('/anggota/{$id}/update',[Canggota::class, 'update'])->name('anggota.update');
+        Route::delete('/anggota/{$id}/delete',[Canggota::class, 'delete'])->name('anggota.delete');
     });
 
 });

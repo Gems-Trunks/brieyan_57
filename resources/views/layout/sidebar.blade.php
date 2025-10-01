@@ -37,11 +37,10 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
-               <a href="{{route('dashboard')}}" class="nav-link active">
+               <a href="{{route('dashboard')}}" class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                      Dashboard
-                     <i class="right fas fa-angle-left"></i>
                   </p>
                </a>
             </li>
@@ -49,12 +48,12 @@
             @if(auth()->user()->level === 'admin')
             <!-- tambahi -->
             <li class="nav-item menu-open">
-               <a href="{{ route('anggota.index')}}" class=" nav-link ">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+               <a href="{{ route('anggota.index')}}" class=" {{ Route::is('anggota.*') ? 'active' : '' }} nav-link ">
+                  <i class=" nav-icon fas fa-tachometer-alt"></i>
                   <p>
                      Data Anggota
                   </p>
-               </a>
+               </a>w
             </li>
             @endif
             <!-- tambahi -->

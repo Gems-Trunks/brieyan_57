@@ -47,11 +47,6 @@
    <!-- /.content -->
 </div>
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-   <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
 
 
 <!-- jQuery -->
@@ -84,7 +79,3 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('dist/js/pages/dashboard.js')}}"></script>

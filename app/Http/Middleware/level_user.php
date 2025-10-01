@@ -19,12 +19,11 @@ class level_user
         // Periksa apakah pengguna sudah login
         if (Auth::check() && Auth::user()->level === 'admin') {
             // Periksa apakah peran pengguna adalah 'admin'
-                return $next($request);
+            return $next($request);
         }
-        
+
         // Jika pengguna bukan admin, alihkan kembali ke halaman dashboard
         // Gunakan `route('dashboard')` jika Anda sudah memberikan nama pada rute dashboard Anda
         return redirect()->route('dashboard');
     }
-
 }

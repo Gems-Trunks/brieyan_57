@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\level_user;
+use App\Http\Middleware\level_user; 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
