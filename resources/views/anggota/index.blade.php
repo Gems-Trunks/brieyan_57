@@ -38,14 +38,26 @@
                   <td>{{ $d->pekerjaan }}/ {{ $d->instansi }}</td>
                   <td>{{ $d->alamat }}</td>
                   <td>
-                     <button type="button" class="btn btn-success btn-sm" title="Edit data" data-toggle="modal"
-                        data-target="#edit{{ $d->id }}"><i class="fa fa-edit"></i></button>
-                  </td>
+                     <div class="d-flex gap-2" role="group">
+                        <a href="{{ route('anggota.edit', $d->id)}}" class="btn btn-success btn-sm p-1"><i
+                              class="fa fa-edit"></i></a>
+                        <form action="{{ route('anggota.delete', $d->id) }}" method="POST"
+                           onsubmit="return confirm('yakin ingin untuk menghapus data ini?');">
+                           @csrf
+                           @method('DELETE')
+                           <button type="submit" class="btn btn-danger btn-sm p-1" title="Hapus data"
+                              data-toggle="modal">
+                              <i class="fa fa-trash"></i></button>
+                        </form>
+                        <a href="{{ route('anggota.show', $d->id)}}" class="btn btn-primary btn-sm p-1"><i
+                              class="fa fa-eye"></i></a>
+                     </div>
                   </td>
                   @endforeach
                </tr>
                </tr>
-
+            </tbody>
+         </table>
       </div>
    </div>
 </div>

@@ -4,11 +4,11 @@
    <form method="POST" action="{{ route('anggota.save') }}" enctype="multipart/form-data">
       @csrf
       <div class="row">
-         {{-- Kolom Kiri --}}
+
          <div class="col-md-6">
             <div class="form-group">
                <label>Nomor Anggota</label>
-               <input type="text" name="id_anggota" class="form-control" required>
+               <input type="text" name="id_anggota" class="form-control" value="{{ $kode_anggota }}" required>
                @error('id_anggota') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 
@@ -52,7 +52,7 @@
             </div>
          </div>
 
-         {{-- Kolom Kanan --}}
+
          <div class="col-md-6">
             <div class="form-group">
                <label>Status</label>
@@ -66,7 +66,17 @@
 
             <div class="form-group">
                <label>Pendidikan Terakhir</label>
-               <input type="text" name="pendidikan_terakhir" class="form-control" required>
+               <select name="pendidikan_terakhir" class="custom-select" required>
+                  <option value="">Pilih</option>
+                  <option value="S3">S3</option>
+                  <option value="S2">S2</option>
+                  <option value="S1">S1</option>
+                  <option value="SMA">SMA</option>
+                  <option value="SMK">SMK</option>
+                  <option value="SMP">SMP</option>
+                  <option value="SD">SD</option>
+                  <option value="Lainnya">Lainnya</option>
+               </select>
                @error('pendidikan_terakhir') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 

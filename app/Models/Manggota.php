@@ -12,6 +12,7 @@ class Manggota extends Model
     protected $table = 'anggota';
 
     protected $fillable = [
+        'id',
         'foto',
         'id_anggota',
         'nama',
