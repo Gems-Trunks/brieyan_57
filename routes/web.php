@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Clogin;
 use App\Http\Controllers\Canggota;
-// use App\Http\Controllers\Csiswa;
+use App\Http\Controllers\Cbuku;
+use App\Http\Controllers\Ckategori;
 
 // Route::get('/', function () {
 //     return view('dashboard');
@@ -17,7 +18,8 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('dashboard');
+        $judul = "DASHBOARD";
+        return view('dashboard', compact('judul'));
     })->name('dashboard');
 
     Route::post('/logout', function () {
@@ -29,12 +31,22 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::middleware(['level:admin'])->group(function () {
-        Route::get('/anggota', [Canggota::class, 'index'])->name('anggota.index');
-        Route::get('/anggota/create', [Canggota::class, 'create'])->name('anggota.create');
-        Route::post('/anggota/save', [Canggota::class, 'save'])->name('anggota.save');
-        Route::get('/anggota/{id}/edit', [Canggota::class, 'edit'])->name('anggota.edit');
-        Route::put('/anggota/{id}/update', [Canggota::class, 'update'])->name('anggota.update');
-        Route::get('/anggota/{id}/show', [Canggota::class, 'show'])->name('anggota.show');
-        Route::delete('/anggota/{id}/delete', [Canggota::class, 'delete'])->name('anggota.delete');
+        Route::controller(Canggota::class)->group(function () {
+            Route::get('/anggota', [Canggota::class, 'index'])->name('anggota.index');
+            Route::get('/anggota/create', [Canggota::class, 'create'])->name('anggota.create');
+            Route::post('/anggota/save', [Canggota::class, 'save'])->name('anggota.save');
+            Route::get('/anggota/{id}/edit', [Canggota::class, 'edit'])->name('anggota.edit');
+            Route::put('/anggota/{id}/update', [Canggota::class, 'update'])->name('anggota.update');
+            Route::get('/anggota/{id}/show', [Canggota::class, 'show'])->name('anggota.show');
+            Route::delete('/anggota/{id}/delete', [Canggota::class, 'delete'])->name('anggota.delete');
+        });
+        Route::resource('buku', Cbuku::class);
+        Route::controller(Ckategori::class)->group(function () {
+            Route::get('buku/kategori', [Ckategori::class, "index"])->name('kategori.index');
+            Route::post('buku/kategori', [Ckategori::class, "store"])->name('kategori.store');
+            Route::get('buku/kategori/{Mkategori}', [Ckategori::class, "edit"])->name('kategori.edit');
+            Route::put('buku/kategori/{Mkategori}', [Ckategori::class, "update"])->name('kategori.update');
+            Route::delete('buku/kategori/{Mkategori}', [Ckategori::class, "destroy"])->name('kategori.destroy');
+        });
     });
 });

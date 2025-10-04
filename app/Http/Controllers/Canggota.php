@@ -10,8 +10,9 @@ class Canggota extends Controller
     // index
     public function index()
     {
+        $judul = "DATA ANGGOTA";
         $data = Manggota::all();
-        return view('anggota.index', compact('data'));
+        return view('anggota.index', compact('data', 'judul'));
     }
 
 
@@ -27,6 +28,7 @@ class Canggota extends Controller
     {
         $request->validate([
             'id_anggota'    => 'unique:anggota,id_anggota',
+            'nomor_handphone' => 'numeric|digits_between:10,15',
         ]);
 
         $filename = null;
