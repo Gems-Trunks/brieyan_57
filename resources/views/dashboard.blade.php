@@ -1,4 +1,8 @@
 @extends('layout.app')
 @section('konten')
-main menu
-@endsection 
+<div class="card">
+   <div class="card-body">
+      main menu
+   </div>
+</div>
+@endsection

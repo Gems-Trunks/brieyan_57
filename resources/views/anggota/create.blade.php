@@ -107,7 +107,7 @@
 
             <div class="form-group mt-3">
                <button type="submit" class="btn btn-primary">Submit</button>
-               <a href="{{ route('anggota.index') }}" class="btn btn-danger">Kembali</a>
+               <a href="{{ route('anggota.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
          </div>
       </div>

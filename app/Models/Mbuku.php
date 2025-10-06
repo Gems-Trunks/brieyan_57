@@ -9,7 +9,7 @@ class Mbuku extends Model
 {
     //
     use HasFactory; // ini buat apa si?
-    protected $table = "anggota";
+    protected $table = "buku";
 
     protected $fillable = [
         "kategori",
@@ -20,5 +20,6 @@ class Mbuku extends Model
         'tahun_terbit',
         'isbn',
         'posisi_buku',
+        'status',
     ];
 }

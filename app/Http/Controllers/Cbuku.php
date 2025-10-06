@@ -15,13 +15,12 @@ class Cbuku extends Controller
     {
         //
         $judul = "DATA BUKU";
-        $data = Mbuku::all();
-        $buku = DB::table('buku')
+        $data = DB::table('buku')
             ->leftJoin('kategori', 'buku.kategori', '=', 'kategori.kategori')
             ->select('buku.*', 'kategori.kategori', 'kategori.kode_buku',)
             ->get();
 
-        return view('buku.index', compact('data', 'judul'));
+        return view('buku.index', compact('judul', 'data'));
     }
 
     /**
@@ -30,7 +29,8 @@ class Cbuku extends Controller
     public function create()
     {
         //
-        return view('buku.create');
+        $kategori = DB::table('kategori')->get();
+        return view('buku.create', compact('kategori'));
     }
 
     /**
@@ -39,9 +39,30 @@ class Cbuku extends Controller
     public function store(Request $request)
     {
         //
+        $kategori = DB::table('kategori')->where('id', $request->kategori)->first();
+        $gabunganKode = $kategori->kode_buku . $request->kode_buku;
         $request->validate([
-            'tahun' => 'numeric'
+            'kategori' => 'required',
+            'kode_buku' => 'required',
+            'tahun_terbit' => 'required|numeric|digits:4',
+            'judul_buku' => 'string|required|max:255',
+            'pengarang' => 'string|required|max:255',
+            'penerbit' => 'string|required|max:255',
+            'posisi_buku' => 'string|required|max:255',
         ]);
+        Mbuku::create([
+            'kategori' => $request->kategori,
+            'kode_buku' => $gabunganKode,
+            'judul_buku' => $request->judul_buku,
+            'pengarang' => $request->pengarang,
+            'penerbit' => $request->penerbit,
+            'tahun_terbit' => $request->tahun_terbit,
+            'isbn' => $request->isbn,
+            'posisi_buku' => $request->posisi_buku,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('buku.index')->with('status', ['judul' => 'Berhasil', 'pesan' => 'Data berhasil disimpan', 'icon' => 'success']);
     }
 
 
@@ -60,6 +81,8 @@ class Cbuku extends Controller
     public function edit(Mbuku $mbuku)
     {
         //
+        $kategori = DB::table('kategori')->get();
+        return view('buku.edit', compact('mbuku', 'kategori'));
     }
 
     /**
@@ -68,6 +91,29 @@ class Cbuku extends Controller
     public function update(Request $request, Mbuku $mbuku)
     {
         //
+
+        $request->validate([
+            'kategori' => 'required',
+            'kode_buku' => 'required',
+            'tahun_terbit' => 'required|numeric|digits:4',
+            'judul_buku' => 'string|required|max:255',
+            'pengarang' => 'string|required|max:255',
+            'penerbit' => 'string|required|max:255',
+            'posisi_buku' => 'string|required|max:255',
+        ]);
+        $mbuku->update([
+            'kategori' => $request->kategori,
+            'kode_buku' => $request->kode_buku,
+            'judul_buku' => $request->judul_buku,
+            'pengarang' => $request->pengarang,
+            'penerbit' => $request->penerbit,
+            'tahun_terbit' => $request->tahun_terbit,
+            'isbn' => $request->isbn,
+            'posisi_buku' => $request->posisi_buku,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('buku.index')->with('status', ['judul' => 'Berhasil', 'pesan' => "Data Berhasil di Simpan", 'icon' => 'success']);
     }
 
     /**
@@ -76,5 +122,7 @@ class Cbuku extends Controller
     public function destroy(Mbuku $mbuku)
     {
         //
+        $mbuku->delete();
+        return redirect()->route('buku.index')->with('sukses', 'berhasil di hapus');
     }
 }

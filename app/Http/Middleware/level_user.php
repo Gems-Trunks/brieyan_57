@@ -17,13 +17,18 @@ class level_user
     public function handle(Request $request, Closure $next, string $role): Response
     {
         // Periksa apakah pengguna sudah login
-        if (Auth::check() && Auth::user()->level === 'admin') {
-            // Periksa apakah peran pengguna adalah 'admin'
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        if (Auth::user()->level === $role) {
             return $next($request);
         }
 
-        // Jika pengguna bukan admin, alihkan kembali ke halaman dashboard
-        // Gunakan `route('dashboard')` jika Anda sudah memberikan nama pada rute dashboard Anda
+        if ($request->routeIs('dashboard')) {
+            abort(403, 'Unauthorized');
+        }
+
         return redirect()->route('dashboard');
     }
 }
