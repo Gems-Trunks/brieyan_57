@@ -8,11 +8,16 @@ use App\Models\Manggota;
 class Canggota extends Controller
 {
     // index
-    public function index()
+    public function index(Request $request)
     {
         $judul = "DATA ANGGOTA";
-        $data = Manggota::all();
-        return view('anggota.index', compact('data', 'judul'));
+        $query = Manggota::query();
+        if ($request->filled('dari') && $request->filled('sampai')) {
+            $query->whereBetween('anggota.tanggal_daftar', [$request->dari, $request->sampai]);
+        }
+
+        $anggota = $query->get();
+        return view('anggota.index', compact('anggota', 'judul'));
     }
 
 
@@ -57,6 +62,36 @@ class Canggota extends Controller
 
         return redirect()->route('anggota.index')->with('status', ['judul' => 'Berhasil', 'pesan' => 'Data berhasil disimpan', 'icon' => 'success']);
     }
+
+    //cetak
+    public function cetak(Request $request)
+    {
+        $query = Manggota::query();
+        if ($request->filled('dari') && $request->filled('sampai')) {
+            $query->whereBetween('anggota.tanggal_daftar', [$request->dari, $request->sampai]);
+        }
+        $query->orderBy('tanggal_daftar', 'desc');
+        $anggota = $query->get();
+        return view('anggota.cetak', compact('anggota'));
+    }
+
+    // exel
+    public function export()
+    {
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=nama_file.xlsx");
+
+        $anggota = Manggota::all();
+        return view('anggota.export', compact('anggota'));
+    }
+
+    // kartu
+    public function kartu($id)
+    {
+        $anggota = Manggota::findOrFail($id);
+        return view('anggota.kartu', compact('anggota'));
+    }
+
     // edit
     public function edit($id)
     {
