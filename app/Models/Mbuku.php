@@ -22,4 +22,9 @@ class Mbuku extends Model
         'posisi_buku',
         'status',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Mkategori::class, 'kategori', 'id');
+    }
 }
