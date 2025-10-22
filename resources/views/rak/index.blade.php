@@ -12,9 +12,8 @@
             <thead>
                <tr>
                   <th>No</th>
-                  <th>Kode</th>
-                  <th>Nama Kategori</th>
-                  <th>Deskripsi</th>
+                  <th>Kode Rak</th>
+                  <th>Keterangan</th>
                   <th>Aksi</th>
                </tr>
             </thead>
@@ -23,13 +22,11 @@
                <tr>
                   <td>{{ $loop->iteration }}</td>
 
-                  <td>{{ $d->kode_buku }}</td>
-                  <td>{{ $d->kategori }}</td>
-                  <td>{{ $d->deskripsi }}</td> <!-- typo "deksripsi" aku ganti jadi "deskripsi" -->
-
+                  <td>{{ $d->kode_rak }}</td>
+                  <td>{{ $d->keterangan }}</td>
                   <td>
-                     <form action="{{ route('kategori.destroy', $d->id) }}" method="POST"
-                        onsubmit="return confirm('Apakah anda yakin menghapus kategori ini?');" class="d-inline">
+                     <form action="{{ route('rak.destroy', $d->id) }}" method="POST"
+                        onsubmit="return confirm('Apakah anda yakin menghapus data rak ini?');" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">
@@ -48,33 +45,28 @@
                         <div class="modal-dialog" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                                 <h5 class="modal-title" id="exampleModalLabel">Edit Rak</h5>
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                  </button>
                               </div>
                               <div class="modal-body">
-                                 <form action="{{route('kategori.update', $d->id)}}" method="POST"
+                                 <form action="{{route('rak.update', $d->id)}}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                       <label for="kode">Kode Buku</label>
-                                       <input name="kode_buku" class="form-control" type="text" required
-                                          placeholder="Isi Kode Buku" value="{{ old('kode_buku', $d->kode_buku)}}">
-                                       @error('kode_buku') <small class="text-danger">{{ $message }}</small>@enderror
+                                       <label for="kode">Kode Rak</label>
+                                       <input name="kode_rak" class="form-control" type="text" required
+                                          placeholder="Isi Kode Rak" value="{{ old('kode_rak', $d->kode_rak)}}"
+                                          id="kode">
+                                       @error('kode_rak') <small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="form-group">
-                                       <label for="ketegori">Kategori</label>
-                                       <input name="kategroi" class="form-control" type="text" required
-                                          placeholder="Nama Kategori" value="{{ old('kategori', $d->kategori)}}">
-                                       @error('kategori') <small class="text-danger">{{ $message }}</small>@enderror
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="deskripsi">Deskripsi</label>
-                                       <textarea name="deskripsi" id="deskripsi" class="form-control"
-                                          placeholder="Isi deskripsi">{{ old('deskripsi', $d->dekripsi)}}</textarea>
-                                       @error('deskripsi') <small class="text-danger">{{ $message }}</small>@enderror
+                                       <label for="keterangan">Keterangan</label>
+                                       <textarea name="keterangan" id="keterangan" class="form-control"
+                                          placeholder="Isi keterangan">{{ old('keterangan', $d->keterangan)}}</textarea>
+                                       @error('keterangan') <small class="text-danger">{{ $message }}</small>@enderror
                                     </div>
                                     <div class="modal-footer">
                                        <button type="button" class="btn btn-secondary"
@@ -87,8 +79,6 @@
                            </div>
                         </div>
                      </div>
-
-
                   </td>
                </tr>
                @endforeach
@@ -101,30 +91,24 @@
             <div class="modal-dialog" role="document">
                <div class="modal-content">
                   <div class="modal-header">
-                     <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                     <h5 class="modal-title" id="exampleModalLabel">Tambah Rak</h5>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                      </button>
                   </div>
                   <div class="modal-body">
-                     <form action="{{route('kategori.store')}}" method="POST" enctype="multipart/form-data">
+                     <form action="{{route('rak.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                           <label for="kode">Kode Buku</label>
-                           <input name="kode_buku" class="form-control" type="text" required
-                              placeholder="Isi Kode Buku">
-                           @error('kode_buku') <small class="text-danger">{{ $message }}</small>@enderror
+                           <label for="kode">Kode rak</label>
+                           <input name="kode_rak" class="form-control" type="text" required placeholder="Isi Kode Buku">
+                           @error('kode_rak') <small class="text-danger">{{ $message }}</small>@enderror
                         </div>
                         <div class="form-group">
-                           <label for="ketegori">Kategori</label>
-                           <input name="kategori" class="form-control" type="text" required placeholder="Nama Kategori">
-                           @error('kategori') <small class="text-danger">{{ $message }}</small>@enderror
-                        </div>
-                        <div class="form-group">
-                           <label for="deskripsi">Deskripsi</label>
-                           <textarea name="deskripsi" id="deskripsi" class="form-control"
-                              placeholder="Isi deskripsi"></textarea>
-                           @error('deskripsi') <small class="text-danger">{{ $message }}</small>@enderror
+                           <label for="keterangan">Keterangan</label>
+                           <textarea name="keterangan" id="keterangan" class="form-control"
+                              placeholder="Isi keterangan"></textarea>
+                           @error('keterangan') <small class="text-danger">{{ $message }}</small>@enderror
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -140,15 +124,5 @@
       </div>
    </div>
 </div>
-<script>
-   $(document).ready(function() {
-      $('.btn-edit').click(function() {
-         $('#edit_id').val($(this).data('id'));
-         $('#edit_kode').val($(this).data('kode'));
-         $('#edit_kategori').val($(this).data('kategori'));
-         $('#edit_deskripsi').val($(this).data('deskripsi'));
-         $('#formEditKategori').attr('action', '/buku/kategori/' + $(this).data('id'));
-      });
-   });
-</script>
+
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mbuku;
 use App\Models\Mkategori;
+use App\Models\Mrak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class Cbuku extends Controller
     {
         //
         $judul = "DATA BUKU";
-        $data = Mbuku::with(["kategori"])->get();
+        $data = Mbuku::with(["kategori", "rak"])->get();
 
         return view('buku.index', compact('judul', 'data'));
     }
@@ -27,8 +28,9 @@ class Cbuku extends Controller
     public function create()
     {
         //
-        $kategori = Mkategori::get();;
-        return view('buku.create', compact('kategori'));
+        $kategori = Mkategori::get();
+        $rak = Mrak::get();
+        return view('buku.create', compact('kategori', 'rak'));
     }
 
     /**
@@ -44,13 +46,14 @@ class Cbuku extends Controller
             'judul_buku' => 'required|string|max:255',
             'pengarang' => 'required|string|max:255',
             'penerbit' => 'required|string|max:255',
-            'posisi_buku' => 'required|string|max:255',
+            'kode_rak' => 'required|string|max:255',
         ]);
 
         $kategori = Mkategori::find($request->kategori);
+        $rak = Mrak::find($request->kode_rak);
 
-        if (!$kategori) {
-            return back()->with('error', 'Kategori tidak ditemukan.');
+        if (!$kategori && !$rak) {
+            return back()->with('error', 'Kategori / rak tidak ditemukan.');
         }
 
         $gabunganKode = $kategori->kode_buku . '-' . $request->kode_buku;
@@ -63,7 +66,7 @@ class Cbuku extends Controller
             'penerbit' => $request->penerbit,
             'tahun_terbit' => $request->tahun_terbit,
             'isbn' => $request->isbn,
-            'posisi_buku' => $request->posisi_buku,
+            'kode_rak' => $request->posisi_buku,
             'status' => $request->status,
         ]);
 
@@ -91,7 +94,8 @@ class Cbuku extends Controller
     {
         //
         $kategori = Mkategori::get();
-        return view('buku.edit', compact('mbuku', 'kategori'));
+        $rak = Mrak::get();
+        return view('buku.edit', compact('mbuku', 'kategori', 'rak'));
     }
 
     /**
@@ -108,7 +112,7 @@ class Cbuku extends Controller
             'judul_buku' => 'string|required|max:255',
             'pengarang' => 'string|required|max:255',
             'penerbit' => 'string|required|max:255',
-            'posisi_buku' => 'string|required|max:255',
+            'kode_rak' => 'string|required|max:255',
         ]);
         $mbuku->update([
             'kategori' => $request->kategori,
@@ -118,7 +122,7 @@ class Cbuku extends Controller
             'penerbit' => $request->penerbit,
             'tahun_terbit' => $request->tahun_terbit,
             'isbn' => $request->isbn,
-            'posisi_buku' => $request->posisi_buku,
+            'kode_rak' => $request->posisi_buku,
             'status' => $request->status,
         ]);
 

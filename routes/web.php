@@ -6,6 +6,7 @@ use App\Http\Controllers\Clogin;
 use App\Http\Controllers\Canggota;
 use App\Http\Controllers\Cbuku;
 use App\Http\Controllers\Ckategori;
+use App\Http\Controllers\Crak;
 
 // Route untuk guest (belum login)
 Route::middleware(['guest'])->group(function () {
@@ -51,6 +52,13 @@ Route::middleware(['auth'])->group(function () {
          Route::post('kategori', 'store')->name('kategori.store');
          Route::put('kategori/{$id}', 'update')->name('kategori.update');
          Route::delete('kategori/{$id}', 'destroy')->name('kategori.destroy');
+      });
+
+      Route::controller(Crak::class)->group(function () {
+         Route::get('rak', 'index')->name('rak.index');
+         Route::post('rak', 'store')->name('rak.store');
+         Route::put('rak/{$id}', 'update')->name('rak.update');
+         Route::delete('rak/{$id}', 'destroy')->name('rak.destroy');
       });
    });
 });

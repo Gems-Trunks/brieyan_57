@@ -72,13 +72,27 @@
                   </p>
                </a>
             </li>
-            <li class="nav-item menu-open">
-               <a href="{{ route('kategori.index')}}" class=" {{ Route::is('kategori.*') ? 'active' : '' }} nav-link ">
-                  <i class=" nav-icon fas fa-book"></i>
-                  <p>
-                     Kategori Buku
-                  </p>
+            <li class="nav-item menu-close">
+               <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-file"></i>
+                  <p>&nbsp;Data Master<i class="fas fa-angle-left right"></i></p>
                </a>
+               <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                     <a href="{{route('kategori.index')}}"
+                        class="{{ Route::is('buku.*') && !Route::is('buku.kategori.*') ? 'active' : '' }} nav-link "
+                        style="margin-left:37px">
+                        <p>Kategori Buku</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="{{ route('rak.index')}}"
+                        class="{{ Route::is('buku.*') && !Route::is('buku.kategori.*') ? 'active' : '' }} nav-link"
+                        class="nav-link" style="margin-left:37px;">
+                        <p>Rak Buku</p>
+                     </a>
+                  </li>
+               </ul>
             </li>
             @endif
             <!-- tambahi -->

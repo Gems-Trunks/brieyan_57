@@ -27,4 +27,9 @@ class Mbuku extends Model
     {
         return $this->belongsTo(Mkategori::class, 'kategori', 'id');
     }
+
+    public function rak()
+    {
+        return $this->belongsTo(Mrak::class, 'posisi_buku', 'id');
+    }
 }
