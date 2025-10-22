@@ -31,16 +31,18 @@
                   <td>{{ $d-> status}}</td>
                   <td>
                      <div class="dflex-1 gap-2" role="group">
-                        <a href="{{ route('buku.edit', $d->id)}}" class="btn btn-success btn-sm p-1"><i
-                              class="fa fa-edit"></i></a>
+
                         <form action="{{ route('buku.destroy', $d->id)}}" method="POST"
                            onsubmit="return confirm('Anda yakin menghapus data ini?');">
                            @csrf
                            @method('DELETE')
+                           <a href="{{ route('buku.edit', $d->id)}}" class="btn btn-success btn-sm p-1"><i
+                                 class="fa fa-edit"></i></a>
                            <button type="submit" class="btn btn-danger btn-sm p-1"><i class="fa fa-trash"></i></button>
+                           <a href="{{route('buku.show', $d->id)}}" class="btn btn-primary btn-sm p-1"><i
+                                 class="fa fa-eye"></i></a>
                         </form>
-                        <a href="{{route('buku.show', $d->id)}}" class="btn btn-primary btn-sm p-1"><i
-                              class="fa fa-eye"></i></a>
+
                      </div>
                   </td>
                </tr>

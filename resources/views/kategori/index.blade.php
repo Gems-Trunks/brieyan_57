@@ -35,12 +35,14 @@
                         <button type="submit" class="btn btn-danger btn-sm">
                            <i class="fa fa-trash"></i>
                         </button>
+                        <!-- modal edit -->
+                        <button class="btn btn-success btn-sm" data-toggle="modal"
+                           data-target="#modalEdit {{ $d->id }}">
+                           <i class="fa fa-pen-square"></i>
+                        </button>
                      </form>
 
-                     <!-- modal edit -->
-                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEdit {{ $d->id }}">
-                        <i class="fa fa-pen-square"></i>
-                     </button>
+
                      <!-- Modal edit -->
                      <div class="modal fade" id="modalEdit {{ $d->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -140,14 +142,14 @@
    </div>
 </div>
 <script>
-   $(document).ready(function() {
-      $('.btn-edit').click(function() {
-         $('#edit_id').val($(this).data('id'));
-         $('#edit_kode').val($(this).data('kode'));
-         $('#edit_kategori').val($(this).data('kategori'));
-         $('#edit_deskripsi').val($(this).data('deskripsi'));
-         $('#formEditKategori').attr('action', '/buku/kategori/' + $(this).data('id'));
-      });
+$(document).ready(function() {
+   $('.btn-edit').click(function() {
+      $('#edit_id').val($(this).data('id'));
+      $('#edit_kode').val($(this).data('kode'));
+      $('#edit_kategori').val($(this).data('kategori'));
+      $('#edit_deskripsi').val($(this).data('deskripsi'));
+      $('#formEditKategori').attr('action', '/buku/kategori/' + $(this).data('id'));
    });
+});
 </script>
 @endsection

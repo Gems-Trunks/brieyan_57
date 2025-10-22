@@ -15,13 +15,13 @@
                <input type="date" name="dari" value="{{ request('dari')}}" />
                Sampai :
                <input type="date" name="sampai" value="{{ request('sampai')}}" />
-               <button type="submit" class="btn btn-success btn-sm "><i class="fa fa-filter"></i>&nbsp;filter</button>
-
-               <a href="{{ route('anggota.export')}}" class="btn btn-danger btn-sm" target="_blank"
-                  title="export data"><i class="fa fa-print">excel</i></a>
+               <button type="submit" class="btn btn-secondary btn-sm "><i class="fa fa-filter"></i>&nbsp;Filter</button>
+               <a href="{{ route('anggota.cetak', Request()->only('dari','sampai'))}}" class="btn btn-danger btn-sm"
+                  target="_blank" title="cetak data"><i class="fa fa-print"></i>&nbsp;Cetak</a>
+               <a href="{{ route('anggota.export')}}" class="btn btn-success btn-sm" target="_blank"
+                  title="export data"><i class="fa fa-file-export">&nbsp;Excel</i></a>
             </form>
-            <a href="{{ route('anggota.cetak', Request()->only('dari','sampai'))}}" class="btn btn-danger btn-sm"
-               target="_blank" title="cetak data"><i class="fa fa-print">cetak</i></a>
+
 
          </div>
 
@@ -70,8 +70,8 @@
                         </form>
                         <a href="{{ route('anggota.show', $d->id)}}" class="btn btn-primary btn-sm p-1"><i
                               class="fa fa-eye"></i></a>
-                        <a href="{{ route('anggota.kartu', $d->id)}}" class="btn btn-warning"><i
-                              class="fa fa-print"></i></a>
+                        <a href="{{ route('anggota.kartu', $d->id)}}" class="btn btn-warning btn-sm p-1"><i
+                              class="fa fa-id-card"></i></a>
                      </div>
                   </td>
                   @endforeach
