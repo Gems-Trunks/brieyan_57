@@ -17,7 +17,7 @@ class Cbuku extends Controller
     {
         //
         $judul = "DATA BUKU";
-        $data = Mbuku::with(["kategori", "rak"])->get();
+        $data = Mbuku::with(["Rkategori", "Rrak"])->get();
 
         return view('buku.index', compact('judul', 'data'));
     }
@@ -59,14 +59,14 @@ class Cbuku extends Controller
         $gabunganKode = $kategori->kode_buku . '-' . $request->kode_buku;
 
         Mbuku::create([
-            'kode_kategori' => $kategori->id,
+            'kategori' => $kategori->id,
             'kode_buku' => $gabunganKode,
             'judul_buku' => $request->judul_buku,
             'pengarang' => $request->pengarang,
             'penerbit' => $request->penerbit,
             'tahun_terbit' => $request->tahun_terbit,
             'isbn' => $request->isbn,
-            'kode_rak' => $request->posisi_buku,
+            'kode_rak' => $rak->id,
             'status' => $request->status,
         ]);
 
@@ -81,21 +81,21 @@ class Cbuku extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Mbuku $mbuku)
+    public function show(Mbuku $buku)
     {
         //  
-        return view('buku.show', compact('mbuku'));
+        return view('buku.show', compact('buku'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Mbuku $mbuku)
+    public function edit(Mbuku $buku)
     {
         //
         $kategori = Mkategori::get();
         $rak = Mrak::get();
-        return view('buku.edit', compact('mbuku', 'kategori', 'rak'));
+        return view('buku.edit', compact('buku', 'kategori', 'rak'));
     }
 
     /**
@@ -104,6 +104,15 @@ class Cbuku extends Controller
     public function update(Request $request, Mbuku $mbuku)
     {
         //
+
+        $kategori = Mkategori::find($request->kategori);
+        $rak = Mrak::find($request->kode_rak);
+
+        if (!$kategori && !$rak) {
+            return back()->with('error', 'Kategori / rak tidak ditemukan.');
+        }
+
+        $gabunganKode = $kategori->kode_buku . '-' . $request->kode_buku;
 
         $request->validate([
             'kategori' => 'required',
@@ -115,16 +124,17 @@ class Cbuku extends Controller
             'kode_rak' => 'string|required|max:255',
         ]);
         $mbuku->update([
-            'kategori' => $request->kategori,
-            'kode_buku' => $request->kode_buku,
+            'kategori' => $kategori->id,
+            'kode_buku' => $gabunganKode,
             'judul_buku' => $request->judul_buku,
             'pengarang' => $request->pengarang,
             'penerbit' => $request->penerbit,
             'tahun_terbit' => $request->tahun_terbit,
             'isbn' => $request->isbn,
-            'kode_rak' => $request->posisi_buku,
+            'kode_rak' => $rak->id,
             'status' => $request->status,
         ]);
+
 
         return redirect()->route('buku.index')->with('status', ['judul' => 'Berhasil', 'pesan' => "Data Berhasil di Simpan", 'icon' => 'success']);
     }

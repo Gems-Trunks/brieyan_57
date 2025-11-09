@@ -59,11 +59,17 @@
                   <input type="text" name="isbn" class="form-control" value="" required placeholder="Nomor ISBN">
                   @error ('isbn') <small class="text-danger">{{ $message}}</small>@enderror
                </div>
-               <div class="form-group">
-                  <label>Posisi Buku / Rak</label>
-                  <input type="text" name="posisi_buku" class="form-control" value="" required
-                     placeholder="Posisi Buku">
-                  @error ('posisi_buku') <small class="text-danger">{{ $message}}</small>@enderror
+               <div style="flex: 1;">
+                  <label for="kode_rak">Posisi Buku</label>
+                  <select name="kode_rak" id="kode_rak" class="form-control">
+                     <option value="">Pilih</option>
+                     @foreach ($rak as $r)
+                     <option value="{{ $r->id }}" data-kode="{{ $r->kode_rak }}">
+                        {{ $r->kode_rak }}
+                     </option>
+                     @endforeach
+                  </select>
+                  @error ('kode_rak') <small class="text-danger">{{ $message}}</small>@enderror
                </div>
                <div class="form-group">
                   <label>Status</label>
@@ -71,7 +77,7 @@
                      <option value="Ada">Ada</option>
                      <option value="Tidak">Tidak</option>
                   </select>
-                  @error ('posisi_buku') <small class="text-danger">{{ $message}}</small>@enderror
+                  @error ('status') <small class="text-danger">{{ $message}}</small>@enderror
                </div>
             </div>
          </div>

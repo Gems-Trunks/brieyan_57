@@ -12,24 +12,24 @@ class Mbuku extends Model
     protected $table = "buku";
 
     protected $fillable = [
-        "kategori",
-        "kode_buku",
+        "kategori", // foreign
+        "kode_buku", // foreign
         "judul_buku",
         "pengarang",
         'penerbit',
         'tahun_terbit',
         'isbn',
-        'posisi_buku',
+        'kode_rak', // foreign
         'status',
     ];
 
-    public function kategori()
+    public function Rkategori()
     {
         return $this->belongsTo(Mkategori::class, 'kategori', 'id');
     }
 
-    public function rak()
+    public function Rrak()
     {
-        return $this->belongsTo(Mrak::class, 'posisi_buku', 'id');
+        return $this->belongsTo(Mrak::class, 'kode_rak', 'id');
     }
 }
