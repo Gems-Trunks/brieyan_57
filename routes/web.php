@@ -6,6 +6,7 @@ use App\Http\Controllers\Clogin;
 use App\Http\Controllers\Canggota;
 use App\Http\Controllers\Cbuku;
 use App\Http\Controllers\Ckategori;
+use App\Http\Controllers\Cpinjam;
 use App\Http\Controllers\Crak;
 
 // Route untuk guest (belum login)
@@ -54,11 +55,21 @@ Route::middleware(['auth'])->group(function () {
          Route::delete('kategori/{$id}', 'destroy')->name('kategori.destroy');
       });
 
+      // rak
       Route::controller(Crak::class)->group(function () {
          Route::get('rak', 'index')->name('rak.index');
          Route::post('rak', 'store')->name('rak.store');
          Route::put('rak/{$id}', 'update')->name('rak.update');
          Route::delete('rak/{$id}', 'destroy')->name('rak.destroy');
+      });
+
+      // pinjam
+      Route::controller(Cpinjam::class)->group(function () {
+         Route::get('/pinjam/', [Cpinjam::class, 'index'])->name('pinjam.index');
+         Route::get('/pinjam/create', [Cpinjam::class, 'create'])->name('pinjam.create');
+         Route::post('/pinjam/store', [Cpinjam::class, 'store'])->name('pinjam.store');
+         Route::get('/pinjam/view/{id}', [Cpinjam::class, 'view'])->name('pinjam.view');
+         Route::get('/pinjam/kembali/{id_pinjam}/{id_buku}', [Cpinjam::class, 'kembali'])->name('pinjam.kembali');
       });
    });
 });

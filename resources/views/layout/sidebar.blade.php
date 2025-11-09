@@ -44,6 +44,7 @@
          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+            <li class="nav-header">Home</li>
             <li class="nav-item menu-open">
                <a href="{{route('dashboard')}}" class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -53,7 +54,22 @@
                </a>
             </li>
 
+
+
             @if(auth()->user()->level === 'admin')
+
+            <li class="nav-header">Transaksi</li>
+
+            <li class="nav-item">
+               <a href="{{ route('pinjam.index')}}" class="{{ Route::is('pinjam.*') ? 'active' : '' }} nav-link"
+                  class="nav-link" style="margin-left:37px;">
+                  <i class=" nav-icon fas fa-address-card"></i>
+                  <p>Peminjaman Buku</p>
+               </a>
+            </li>
+
+            <li class="nav-header">Data Utama</li>
+
             <!-- tambahi -->
             <li class="nav-item menu-open">
                <a href="{{ route('anggota.index')}}" class=" {{ Route::is('anggota.*') ? 'active' : '' }} nav-link ">
@@ -92,6 +108,7 @@
                         <p>Rak Buku</p>
                      </a>
                   </li>
+
                </ul>
             </li>
             @endif
