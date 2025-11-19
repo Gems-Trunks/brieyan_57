@@ -148,4 +148,24 @@ class Cbuku extends Controller
         $mbuku->delete();
         return redirect()->route('buku.index')->with('sukses', 'berhasil di hapus');
     }
+
+    public function api1()
+    {
+        $data = Mbuku::all();
+        return response()->json([
+            'kelompok' => '12',
+            'status' => true,
+            'data' => $data
+        ], 200);
+    }
+
+    public function api2()
+    {
+        $data = Mbuku::with('Rkategori', 'Rrak')->get();
+        return response()->json([
+            'kelompok' => '12',
+            'status' => true,
+            'data' => $data
+        ], 200);
+    }
 }

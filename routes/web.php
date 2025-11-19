@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Clogin;
 use App\Http\Controllers\Canggota;
 use App\Http\Controllers\Cbuku;
@@ -19,7 +20,18 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
    Route::get('/', function () {
       $judul = "DASHBOARD";
-      return view('dashboard', compact('judul'));
+      $jumlahAnggota = DB::table('anggota')->count();
+      $jumlahBuku    = DB::table('buku')->count();
+
+      // Hitung buku yang sedang dipinjam (status = 'Dipinjam')
+      $bukuDipinjam  = DB::table('pinjam')
+         ->where('status', 'Dipinjam')
+         ->count();
+
+      // Buku tersedia = total buku - yang sedang dipinjam
+      $bukuTersedia  = $jumlahBuku - $bukuDipinjam;
+
+      return view('dashboard', compact('jumlahAnggota', 'jumlahBuku', 'bukuDipinjam', 'bukuTersedia', 'judul'));
    })->name('dashboard');
 
    Route::post('/logout', function () {
@@ -47,6 +59,8 @@ Route::middleware(['auth'])->group(function () {
       // Buku
       Route::resource('buku', Cbuku::class);
 
+
+
       // Kategori Buku
       Route::controller(Ckategori::class)->group(function () {
          Route::get('kategori', 'index')->name('kategori.index');
@@ -59,8 +73,8 @@ Route::middleware(['auth'])->group(function () {
       Route::controller(Crak::class)->group(function () {
          Route::get('rak', 'index')->name('rak.index');
          Route::post('rak', 'store')->name('rak.store');
-         Route::put('rak/{$id}', 'update')->name('rak.update');
-         Route::delete('rak/{$id}', 'destroy')->name('rak.destroy');
+         Route::put('rak/{id}', 'update')->name('rak.update');
+         Route::delete('rak/{id}', 'destroy')->name('rak.destroy');
       });
 
       // pinjam

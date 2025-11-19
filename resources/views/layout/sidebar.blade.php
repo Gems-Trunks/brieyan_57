@@ -45,7 +45,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-header">Home</li>
-            <li class="nav-item menu-open">
+            <li class="nav-item">
                <a href="{{route('dashboard')}}" class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
@@ -62,7 +62,7 @@
 
             <li class="nav-item">
                <a href="{{ route('pinjam.index')}}" class="{{ Route::is('pinjam.*') ? 'active' : '' }} nav-link"
-                  class="nav-link" style="margin-left:37px;">
+                  class="nav-link">
                   <i class=" nav-icon fas fa-address-card"></i>
                   <p>Peminjaman Buku</p>
                </a>
@@ -71,15 +71,15 @@
             <li class="nav-header">Data Utama</li>
 
             <!-- tambahi -->
-            <li class="nav-item menu-open">
-               <a href="{{ route('anggota.index')}}" class=" {{ Route::is('anggota.*') ? 'active' : '' }} nav-link ">
+            <li class="nav-item">
+               <a href="{{ route('anggota.index')}}" class=" {{ Route::is('anggota.*') ? 'active' : '' }} nav-link">
                   <i class=" nav-icon fas fa-address-card"></i>
                   <p>
                      Data Anggota
                   </p>
                </a>
             </li>
-            <li class="nav-item menu-open">
+            <li class="nav-item">
                <a href="{{ route('buku.index')}}"
                   class=" {{ Route::is('buku.*') && !Route::is('buku.kategori.*') ? 'active' : '' }} nav-link ">
                   <i class=" nav-icon fas fa-book"></i>

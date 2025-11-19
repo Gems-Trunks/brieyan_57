@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('konten')
+
 <form action="{{ route('pinjam.store') }}" method="POST">
    @csrf
    <div class="mb-3">
@@ -46,4 +47,22 @@
             class="fa fa-save"></i> &nbsp;Simpan Data</button>
    </div>
 </form>
+
 @endsection
+
+{{-- ✅ Tambahan Select2 supaya dropdown bisa diketik --}}
+@push('scripts')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+   $(document).ready(function() {
+      $('.select2').select2({
+         placeholder: "-- Pilih --",
+         allowClear: true,
+         width: '100%'
+      });
+   });
+</script>
+@endpush
